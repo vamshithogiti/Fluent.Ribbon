@@ -28,9 +28,7 @@
                     Margin="6,2,4,0"
                     VerticalAlignment="Stretch"
                     Padding="15,0,0,0">
-                <ContentControl AutomationProperties.Name="{TemplateBinding Header}"
-                                AutomationProperties.AutomationId="{TemplateBinding Name}"
-                                Content="{TemplateBinding Header}"
+                <ContentControl Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                 Margin="5,1,5,4"
                                 HorizontalAlignment="Center"
