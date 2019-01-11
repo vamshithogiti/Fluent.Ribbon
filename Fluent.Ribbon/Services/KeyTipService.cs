@@ -27,20 +27,20 @@ namespace Fluent
         private readonly DispatcherTimer timer;
 
         // Is KeyTips Actived now
-        private KeyTipAdorner activeAdornerChain;
+        private KeyTipAdorner? activeAdornerChain;
         // This element must be remembered to restore focus
-        private FocusWrapper backUpFocusedControl;
+        private FocusWrapper? backUpFocusedControl;
 
         // Window where we attached
-        private Window window;
+        private Window? window;
 
         // Whether we attached to window
         private bool attached;
 
         // Attached HWND source
-        private HwndSource attachedHwndSource;
+        private HwndSource? attachedHwndSource;
 
-        private string currentUserInput;
+        private string? currentUserInput;
 
         /// <summary>
         /// Checks if any keytips are visible.

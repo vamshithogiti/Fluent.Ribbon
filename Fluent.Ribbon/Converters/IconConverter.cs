@@ -72,7 +72,7 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override object GetValueToConvert(object value, Size desiredSize, Visual targetVisual)
+        protected override object GetValueToConvert(object? value, Size desiredSize, Visual? targetVisual)
         {
             if (value == null)
             {
@@ -87,7 +87,7 @@ namespace Fluent
             return base.GetValueToConvert(value, desiredSize, targetVisual);
         }
 
-        private static ImageSource GetDefaultIcon(DependencyObject targetVisual, Size desiredSize)
+        private static ImageSource? GetDefaultIcon(DependencyObject? targetVisual, Size desiredSize)
         {
             IntPtr windowHandle;
 
@@ -122,7 +122,7 @@ namespace Fluent
             return null;
         }
 
-        private static ImageSource GetDefaultIcon(IntPtr hwnd, Size desiredSize)
+        private static ImageSource? GetDefaultIcon(IntPtr hwnd, Size desiredSize)
         {
 #pragma warning disable CS0219 // Variable is assigned but its value is never used
 

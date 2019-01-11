@@ -68,7 +68,7 @@ namespace Fluent
         /// <summary>
         /// Gets parent tab control
         /// </summary>
-        internal BackstageTabControl TabControlParent
+        internal BackstageTabControl? TabControlParent
         {
             get
             {
@@ -151,7 +151,7 @@ namespace Fluent
             }
         }
 
-        private static void UnselectSelectedItem(BackstageTabControl backstageTabControl)
+        private static void UnselectSelectedItem(BackstageTabControl? backstageTabControl)
         {
             if (backstageTabControl?.SelectedItem == null)
             {

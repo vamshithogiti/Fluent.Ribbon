@@ -32,7 +32,7 @@ namespace Fluent
         /// <summary>
         /// Raises the <see cref="PropertyChanged"/> event.
         /// </summary>
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        protected void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

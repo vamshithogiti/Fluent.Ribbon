@@ -9,7 +9,6 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Shapes;
-    using Fluent.Converters;
     using Fluent.Internal;
 
     /// <summary>
@@ -23,7 +22,7 @@ namespace Fluent
         // Collection of visual children
         private readonly VisualCollection visualChildren;
         private readonly Rectangle background;
-        private readonly BackstageTabControl backstageTabControl;
+        private readonly BackstageTabControl? backstageTabControl;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BackstageAdorner"/> class.

@@ -45,7 +45,7 @@ namespace Fluent
         /// Gets content for selected tab
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public object SelectedContent
+        public object? SelectedContent
         {
             get { return this.GetValue(SelectedContentProperty); }
             internal set { this.SetValue(SelectedContentPropertyKey, value); }
@@ -226,7 +226,7 @@ namespace Fluent
         /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Backstage ParentBackstage
+        public Backstage? ParentBackstage
         {
             get { return (Backstage)this.GetValue(ParentBackstageProperty); }
             set { this.SetValue(ParentBackstageProperty, value); }
@@ -377,7 +377,7 @@ namespace Fluent
         /// If there is no item selected, the first found item is selected and it's container (<see cref="BackstageTabItem"/>) is returned.
         /// </summary>
         /// <returns>The currently selected <see cref="BackstageTabItem"/>. Or null of nothing was selected and nothing could be selected.</returns>
-        private BackstageTabItem GetSelectedTabItem()
+        private BackstageTabItem? GetSelectedTabItem()
         {
             var container = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as BackstageTabItem;
             if (container == null
@@ -396,7 +396,7 @@ namespace Fluent
         }
 
         // Finds next tab item
-        private BackstageTabItem FindNextTabItem(int startIndex, int direction)
+        private BackstageTabItem? FindNextTabItem(int startIndex, int direction)
         {
             if (direction == 0)
             {

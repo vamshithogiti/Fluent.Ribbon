@@ -98,13 +98,13 @@
         /// The target visual on which the image/icon should be shown.
         /// </summary>
         [ConstructorArgument("targetVisualBinding")]
-        public Binding TargetVisualBinding { get; set; }
+        public Binding? TargetVisualBinding { get; set; }
 
         /// <summary>
         /// The binding to which the converter should be applied to.
         /// </summary>
         [ConstructorArgument("iconBinding")]
-        public Binding IconBinding { get; set; }
+        public Binding? IconBinding { get; set; }
 
         /// <summary>
         /// The desired size for the image.
@@ -135,7 +135,7 @@
         }
 
         /// <inheritdoc />
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type? targetType, object parameter, CultureInfo culture)
         {
             return Binding.DoNothing;
         }
@@ -143,7 +143,7 @@
         /// <summary>
         /// Returns the value to convert.
         /// </summary>
-        protected virtual object GetValueToConvert(object value, Size desiredSize, Visual targetVisual)
+        protected virtual object GetValueToConvert(object? value, Size desiredSize, Visual? targetVisual)
         {
             return value;
         }
@@ -224,7 +224,7 @@
             return multiBinding.ProvideValue(serviceProvider);
         }
 
-        private object Convert(object value, Visual targetVisual, Size desiredSize, Type targetType)
+        private object Convert(object value, Visual? targetVisual, Size desiredSize, Type targetType)
         {
             var imageSource = CreateFrozenImageSource(this.GetValueToConvert(value, desiredSize, targetVisual), targetVisual, desiredSize);
 
@@ -259,7 +259,7 @@
         /// <param name="value">Value from which the <see cref="ImageSource"/> should be extracted. It can be of type <see cref="ImageSource"/></param>
         /// <param name="desiredSize">The desired size to extract from <paramref name="value"/> .</param>
         /// <returns>An frozen <see cref="ImageSource"/> which closest matches <paramref name="desiredSize"/></returns>
-        public static ImageSource CreateFrozenImageSource(object value, Size desiredSize)
+        public static ImageSource? CreateFrozenImageSource(object value, Size desiredSize)
         {
             // We have to use a frozen instance. Otherwise we run into trouble if the same instance is used in multiple locations.
             // In case of BitmapImage it even gets worse when using the same Uri...
@@ -273,7 +273,7 @@
         /// <param name="targetVisual">The target on which the <see cref="ImageSource"/> will be used.</param>
         /// <param name="desiredSize">The desired size to extract from <paramref name="value"/> .</param>
         /// <returns>An frozen <see cref="ImageSource"/> which closest matches <paramref name="desiredSize"/></returns>
-        public static ImageSource CreateFrozenImageSource(object value, Visual targetVisual, Size desiredSize)
+        public static ImageSource? CreateFrozenImageSource(object value, Visual? targetVisual, Size desiredSize)
         {
             // We have to use a frozen instance. Otherwise we run into trouble if the same instance is used in multiple locations.
             // In case of BitmapImage it even gets worse when using the same Uri...
@@ -286,7 +286,7 @@
         /// <param name="value">Value from which the <see cref="ImageSource"/> should be extracted. It can be of type <see cref="ImageSource"/></param>
         /// <param name="desiredSize">The desired size to extract from <paramref name="value"/> .</param>
         /// <returns>An <see cref="ImageSource"/> which closest matches <paramref name="desiredSize"/></returns>
-        public static ImageSource CreateImageSource(object value, Size desiredSize)
+        public static ImageSource? CreateImageSource(object? value, Size desiredSize)
         {
             return CreateImageSource(value, null, desiredSize);
         }
@@ -298,7 +298,7 @@
         /// /// <param name="targetVisual">The target on which the <see cref="ImageSource"/> will be used.</param>
         /// <param name="desiredSize">The desired size to extract from <paramref name="value"/> .</param>
         /// <returns>An <see cref="ImageSource"/> which closest matches <paramref name="desiredSize"/></returns>
-        public static ImageSource CreateImageSource(object value, Visual targetVisual, Size desiredSize)
+        public static ImageSource? CreateImageSource(object? value, Visual? targetVisual, Size desiredSize)
         {
             if (value is null)
             {
@@ -335,7 +335,7 @@
             return null;
         }
 
-        private static ImageSource CreateImageSource(string imagePath, Visual targetVisual, Size desiredSize)
+        private static ImageSource CreateImageSource(string imagePath, Visual? targetVisual, Size desiredSize)
         {
             // Allow things like "Images\Green.png"
             if (imagePath.StartsWith("pack:", StringComparison.OrdinalIgnoreCase) == false)
@@ -359,7 +359,7 @@
             return CreateImageSource(imageUri, targetVisual, desiredSize);
         }
 
-        private static ImageSource CreateImageSource(Uri imageUri, Visual targetVisual, Size desiredSize)
+        private static ImageSource CreateImageSource(Uri imageUri, Visual? targetVisual, Size desiredSize)
         {
             try
             {
@@ -375,7 +375,7 @@
             }
         }
 
-        private static ImageSource ExtractImageSource(System.Drawing.Icon icon, Visual targetVisual, Size desiredSize)
+        private static ImageSource ExtractImageSource(System.Drawing.Icon icon, Visual? targetVisual, Size desiredSize)
         {
             var imageSource = Imaging.CreateBitmapSourceFromHIcon(icon.Handle,
                                                                   Int32Rect.Empty,
@@ -384,7 +384,7 @@
             return ExtractImageSource(imageSource, targetVisual, desiredSize);
         }
 
-        private static ImageSource ExtractImageSource(ImageSource imageSource, Visual targetVisual, Size desiredSize)
+        private static ImageSource ExtractImageSource(ImageSource imageSource, Visual? targetVisual, Size desiredSize)
         {
             if (desiredSize.IsEmpty)
             {
@@ -403,7 +403,7 @@
             return ExtractImageSource(bitmapFrame.Decoder, targetVisual, desiredSize);
         }
 
-        private static ImageSource ExtractImageSource(BitmapDecoder decoder, Visual targetVisual, Size desiredSize)
+        private static ImageSource ExtractImageSource(BitmapDecoder decoder, Visual? targetVisual, Size desiredSize)
         {
             var scaledDesiredSize = GetScaledDesiredSize(desiredSize, targetVisual);
 
@@ -422,7 +422,7 @@
         /// <summary>
         /// Get the scaled desired size.
         /// </summary>
-        protected static Size GetScaledDesiredSize(Size desiredSize, Visual targetVisual)
+        protected static Size GetScaledDesiredSize(Size desiredSize, Visual? targetVisual)
         {
             return GetScaledDesiredSize(desiredSize, GetDpiScale(targetVisual));
         }
@@ -440,7 +440,7 @@
             return new Size(desiredSize.Width * dpiScale.DpiScaleX, desiredSize.Height * dpiScale.DpiScaleY);
         }
 
-        private static DpiScale GetDpiScale(Visual targetVisual)
+        private static DpiScale GetDpiScale(Visual? targetVisual)
         {
 #if !NET45 // VisualTreeHelper.GetDpi is not supported on .NET 4.5
             if (targetVisual != null)
@@ -484,7 +484,7 @@
             return image;
         }
 
-        private static ImageSource GetAsFrozenIfPossible(ImageSource imageSource)
+        private static ImageSource? GetAsFrozenIfPossible(ImageSource? imageSource)
         {
             if (imageSource is null)
             {

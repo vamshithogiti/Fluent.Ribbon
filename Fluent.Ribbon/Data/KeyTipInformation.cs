@@ -23,13 +23,8 @@ namespace Fluent
                 throw new ArgumentNullException(nameof(keys));
             }
 
-            if (associatedElement == null)
-            {
-                throw new ArgumentNullException(nameof(associatedElement));
-            }
-
             this.Keys = keys;
-            this.AssociatedElement = associatedElement;
+            this.AssociatedElement = associatedElement ?? throw new ArgumentNullException(nameof(associatedElement));
             this.VisualTarget = this.AssociatedElement;
 
             this.DefaultVisibility = hide

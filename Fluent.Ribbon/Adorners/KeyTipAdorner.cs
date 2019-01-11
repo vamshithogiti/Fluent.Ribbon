@@ -38,8 +38,8 @@ namespace Fluent
         private readonly FrameworkElement oneOfAssociatedElements;
 
         // Parent adorner
-        private readonly KeyTipAdorner parentAdorner;
-        private KeyTipAdorner childAdorner;
+        private readonly KeyTipAdorner? parentAdorner;
+        private KeyTipAdorner? childAdorner;
 
         private readonly FrameworkElement keyTipElementContainer;
 
@@ -50,7 +50,7 @@ namespace Fluent
         // Designate that this adorner is terminated
         private bool terminated;
 
-        private AdornerLayer adornerLayer;
+        private AdornerLayer? adornerLayer;
 
         #endregion
 
@@ -89,7 +89,7 @@ namespace Fluent
         /// <param name="adornedElement">Element to adorn.</param>
         /// <param name="parentAdorner">Parent adorner or null.</param>
         /// <param name="keyTipElementContainer">The element which is container for elements.</param>
-        public KeyTipAdorner(FrameworkElement adornedElement, FrameworkElement keyTipElementContainer, KeyTipAdorner parentAdorner)
+        public KeyTipAdorner(FrameworkElement adornedElement, FrameworkElement keyTipElementContainer, KeyTipAdorner? parentAdorner)
             : base(adornedElement)
         {
             this.parentAdorner = parentAdorner;
@@ -272,8 +272,8 @@ namespace Fluent
             // Maybe adorner awaiting attaching, cancel it
             this.oneOfAssociatedElements.Loaded -= this.OnDelayAttach;
 
-            // Show this adorner
-            this.adornerLayer.Remove(this);
+            // Remove this adorner
+            this.adornerLayer?.Remove(this);
 
             this.attached = false;
 
@@ -311,7 +311,7 @@ namespace Fluent
 
         #region Static Methods
 
-        private static AdornerLayer GetAdornerLayer(UIElement element)
+        private static AdornerLayer? GetAdornerLayer(UIElement element)
         {
             var current = element;
 
@@ -562,11 +562,12 @@ namespace Fluent
                 return;
             }
 
-            double[] rows = null;
+            double[]? rows = null;
             var groupBox = this.oneOfAssociatedElements as RibbonGroupBox ?? UIHelper.GetParent<RibbonGroupBox>(this.oneOfAssociatedElements);
             var panel = groupBox?.GetPanel();
 
-            if (panel != null)
+            if (group != null
+                && panel != null)
             {
                 var height = groupBox.GetLayoutRoot().DesiredSize.Height;
                 rows = new[]
@@ -772,7 +773,7 @@ namespace Fluent
             return UIHelper.GetParent<QuickAccessToolBar>(element) != null;
         }
 
-        private static void SnapToRowsIfPresent(double[] rows, KeyTipInformation keyTipInformation, Point translatedPoint)
+        private static void SnapToRowsIfPresent(double[]? rows, KeyTipInformation keyTipInformation, Point translatedPoint)
         {
             if (rows == null)
             {
